@@ -55,7 +55,17 @@ class TwoLayerNet(object):
         ############################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        pass
+        W1 = np.random.randn(input_dim, hidden_dim) * weight_scale
+        self.params['W1'] = W1
+
+        b1 = np.zeros(hidden_dim)
+        self.params['b1'] = b1
+
+        W2 = np.random.randn(hidden_dim, num_classes) * weight_scale
+        self.params['W2'] = W2
+
+        b2 = np.zeros(num_classes)
+        self.params['b2'] = b2
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         ############################################################################
@@ -88,7 +98,8 @@ class TwoLayerNet(object):
         ############################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        pass
+        fc1, cache1 = affine_relu_forward(X, self.params['W1'], self.params['b1'])
+        scores, cache2 = affine_forward(fc1, self.params['W2'], self.params['b2'])
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         ############################################################################
@@ -112,13 +123,31 @@ class TwoLayerNet(object):
         ############################################################################
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        pass
+        # Compute loss
+        data_loss, dscores = softmax_loss(scores, y)
 
+        reg_loss = 0.0
+
+        # Don't regularize bias terms
+        reg_loss += np.sum(np.square(self.params['W1']))
+        reg_loss += np.sum(np.square(self.params['W2']))
+
+        loss = data_loss + 0.5 * self.reg * reg_loss
+
+        # Compute grads
+        dfc1, dW2, db2 = affine_backward(dscores, cache2)
+        _, dW1, db1 = affine_relu_backward(dfc1, cache1)
+
+        # Do not forget the gradient of regularization term
+        grads['W1'] = dW1 + self.reg * self.params['W1']
+        grads['b1'] = db1
+        grads['W2'] = dW2 + self.reg * self.params['W2']
+        grads['b2'] = db2
+        
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
         ############################################################################
         #                             END OF YOUR CODE                             #
         ############################################################################
 
         return loss, grads
-
 
