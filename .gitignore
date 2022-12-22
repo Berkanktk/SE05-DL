@@ -1,3 +1,15 @@
 .idea
 __pycache__
+*.pyc
+*.npz
+*.gz
+*.bin
+*.h5
+
+data/
 datasets/
+
+glove.*
+
+imdb_dataset_test.txt
+imdb_dataset_train.txt
