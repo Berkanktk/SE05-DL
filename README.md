@@ -11,7 +11,7 @@ Link to dataset can be found [here](https://www.kaggle.com/datasets/kmader/skin-
 
 ## Assignment 3
 **Dataset Description**   
-temp
+The SMS Spam Collection is a set of SMS tagged messages that have been collected for SMS Spam research. It contains one set of SMS messages in English of 5,574 messages, tagged acording being ham (legitimate) or spam.
 
 **Link**   
-Link to dataset can be found [here]().
+Link to dataset can be found [here](https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset).
